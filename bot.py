@@ -15,7 +15,7 @@ import requests
 
 # Set Your Bot Token gay
 TOKEN = 'YOUR_BOT_TOKEN'
-RAM_LIMIT = '2g' #Set Your Own Ram How Much You Want To Give Your Users
+RAM_LIMIT = '6g' #Set Your Own Ram How Much You Want To Give Your Users
 SERVER_LIMIT = 2 #you can change it!
 database_file = 'database.txt'
 
@@ -447,7 +447,7 @@ def generate_random_port():
     return random.randint(1025, 65535)
 
 async def create_server_task(interaction):
-    await interaction.response.send_message(embed=discord.Embed(description="### Creating Instance, This takes a few seconds. Powered by [CrashOfGuys](<https://discord.com/invite/VWm8zUEQN8>)", color=0x00ff00))
+    await interaction.response.send_message(embed=discord.Embed(description="### Initializing your new VPS instance. Please wait... Powered by [NXH-i9](https://discord.gg/8yPcnBXBBR)", color=0x00ff00))
     userid = str(interaction.user.id)
     if count_user_servers(userid) >= SERVER_LIMIT:
         await interaction.followup.send(embed=discord.Embed(description="```Error: Instance Limit-reached```", color=0xff0000))
@@ -457,7 +457,7 @@ async def create_server_task(interaction):
 
     try:
         container_id = subprocess.check_output([
-           "docker", "run", "-itd", "--privileged", "--hostname", "crashcloud", "--cap-add=ALL", image
+           "docker", "run", "-itd", "--privileged", "--hostname", "nxh-i9", "--cap-add=ALL", image
         ]).strip().decode('utf-8')
     except subprocess.CalledProcessError as e:
         await interaction.followup.send(embed=discord.Embed(description=f"### Error creating Docker container: {e}", color=0xff0000))
