@@ -512,7 +512,6 @@ async def restart(interaction: discord.Interaction, container_name: str):
 
 @bot.tree.command(name="ping", description="Check the bot's latency.")
 async def ping(interaction: discord.Interaction):
-    await interaction.response.defer()
     latency = round(bot.latency * 1000)
     embed = discord.Embed(
         title="🏓 Pong!",
@@ -607,7 +606,7 @@ async def remove_server(interaction: discord.Interaction, container_name: str):
     container_id = get_container_id_from_database(userid, container_name)
 
     if not container_id:
-        await interaction.response.send_message(embed=discord.Embed(description="### No Instance found for your user with that name.", color=0xff0000))
+        await interaction.followup.send(embed=discord.Embed(description="### No Instance found for your user with that name.", color=0xff0000))
         return
 
     try:
@@ -616,9 +615,9 @@ async def remove_server(interaction: discord.Interaction, container_name: str):
 
         remove_from_database(container_id)
 
-        await interaction.response.send_message(embed=discord.Embed(description=f"Instance '{container_name}' removed successfully.", color=0x00ff00))
+        await interaction.followup.send(embed=discord.Embed(description=f"Instance '{container_name}' removed successfully.", color=0x00ff00))
     except subprocess.CalledProcessError as e:
-        await interaction.response.send_message(embed=discord.Embed(description=f"Error removing instance: {e}", color=0xff0000))
+        await interaction.followup.send(embed=discord.Embed(description=f"Error removing instance: {e}", color=0xff0000))
 
 
 @bot.tree.command(name="help", description="Shows the help message")
